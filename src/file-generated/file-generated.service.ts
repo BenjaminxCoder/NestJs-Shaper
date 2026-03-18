@@ -1,12 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { promises as fs } from 'fs';
+import * as fs from 'fs/promises';
 import * as path from 'path';
+import { DataShaper } from './domain/data-shaper';
 
 @Injectable()
 export class FileGeneratedService {
-  async getData() {
-    const filePath = path.join(process.cwd(), 'data', 'demo.json');
+  async getShapedProducts(): Promise<any[]> {
+    const filePath = path.join(process.cwd(), 'data', 'products.json');
     const fileContents = await fs.readFile(filePath, 'utf-8');
-    return JSON.parse(fileContents);
+    const rawData = JSON.parse(fileContents);
+    const shaper = new DataShaper();
+    return shaper.shape(rawData);
   }
 }

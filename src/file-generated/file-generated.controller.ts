@@ -6,7 +6,7 @@ export class FileGeneratedController {
   constructor(private readonly fileGeneratedService: FileGeneratedService) {}
 
   @Get()
-  findAll() {
-    return this.fileGeneratedService.getData();
+  getFileGenerated() {
+    return this.fileGeneratedService.getShapedProducts();
   }
 }
